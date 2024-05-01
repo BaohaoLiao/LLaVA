@@ -5,7 +5,7 @@ with open('README.md', 'r', encoding='utf-8') as f:
     long_description = f.read()
 
 # Read the content of the requirements.txt file
-with open('requirements.txt', 'r', encoding='utf-8') as f:
+with open('requirement.txt', 'r', encoding='utf-8') as f:
     requirements = f.read().splitlines()
 
 setup(
