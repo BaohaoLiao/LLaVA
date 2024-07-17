@@ -112,6 +112,8 @@ class Conversation:
                         ret += " " + message + " " + self.sep2
                 else:
                     ret += ""
+                
+                print(i, [ret])
             ret = ret.lstrip(self.sep)
         elif self.sep_style == SeparatorStyle.PLAIN:
             seps = [self.sep, self.sep2]
