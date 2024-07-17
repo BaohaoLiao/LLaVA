@@ -431,6 +431,7 @@ def preprocess_lilium_2(
             role = roles[sentence["from"]]
             assert role == conv.roles[j % 2], f"{i}"
             conv.append_message(role, sentence["value"])
+        print("?????", conv.get_prompt())
         conversations.append(conv.get_prompt())
 
     # Tokenize conversations

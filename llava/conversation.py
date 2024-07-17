@@ -95,7 +95,7 @@ class Conversation:
         elif self.sep_style == SeparatorStyle.LILIUM_2:
             wrap_sys = lambda msg: f"<<SYS>>\n{msg}\n<</SYS>>\n\n" if len(msg) > 0 else msg
             wrap_inst = lambda msg: f"[INST] {msg} [/INST]"
-            ret = "<s>"
+            ret = ""
 
             for i, (role, message) in enumerate(messages):
                 if i == 0:
@@ -113,7 +113,6 @@ class Conversation:
                 else:
                     ret += ""
                 
-                print(i, [ret])
             ret = ret.lstrip(self.sep)
         elif self.sep_style == SeparatorStyle.PLAIN:
             seps = [self.sep, self.sep2]
