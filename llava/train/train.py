@@ -448,6 +448,10 @@ def preprocess_lilium_2(
 
     targets = input_ids.clone()
 
+    print(input_ids)
+    import sys
+    sys.exit(0)
+
     assert conv.sep_style == conversation_lib.SeparatorStyle.LILIUM_2
 
     # Mask targets
