@@ -447,8 +447,8 @@ def preprocess_lilium_2(
         ).input_ids
 
     targets = input_ids.clone()
-    print(conversation)
-    print(target)
+    print(conversations)
+    print(targets)
     import sys
     sys.exit(0)
 
