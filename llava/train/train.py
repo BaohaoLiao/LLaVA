@@ -451,6 +451,9 @@ def preprocess_lilium_2(
 
     assert conv.sep_style == conversation_lib.SeparatorStyle.LILIUM_2
 
+    print(conversations)
+    print(targets)
+
     # Mask targets
     sep = "[/INST] "
     for conversation, target in zip(conversations, targets):
@@ -478,6 +481,11 @@ def preprocess_lilium_2(
             target[cur_len : cur_len + instruction_len] = IGNORE_INDEX
 
             cur_len += round_len
+
+            print(f"-------{i}----------")
+            print(rou)
+            print(target)
+
         target[cur_len:] = IGNORE_INDEX
 
         if cur_len < tokenizer.model_max_length:
