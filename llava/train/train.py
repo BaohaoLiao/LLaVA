@@ -439,7 +439,8 @@ def preprocess_lilium_2(
             role = roles[sentence["from"]]
             assert role == conv.roles[j % 2], f"{i}"
             conv.append_message(role, sentence["value"])
-        conversations.append(conv.sep + conv.get_prompt())
+        #conversations.append(conv.sep + conv.get_prompt())
+        conversations.append(conv.get_prompt())
 
     # Tokenize conversations
 
@@ -455,7 +456,7 @@ def preprocess_lilium_2(
         ).input_ids
 
     targets = input_ids.clone()
-    conversations = [conversation[len(conv.sep):] for conversation in conversations]
+    #conversations = [conversation[len(conv.sep):] for conversation in conversations]
 
     assert conv.sep_style == conversation_lib.SeparatorStyle.LILIUM_2
 
@@ -480,11 +481,10 @@ def preprocess_lilium_2(
             parts[0] += sep
 
             if has_image:
-                round_len = len(tokenizer_image_token(rou, tokenizer)) + 1
+                round_len = len(tokenizer_image_token(rou, tokenizer))
                 instruction_len = len(tokenizer_image_token(parts[0], tokenizer)) - 2
-
             else:
-                round_len = len(tokenizer(rou).input_ids) + 1
+                round_len = len(tokenizer(rou).input_ids)
                 instruction_len = len(tokenizer(parts[0]).input_ids) - 2
 
             target[cur_len : cur_len + instruction_len] = IGNORE_INDEX
