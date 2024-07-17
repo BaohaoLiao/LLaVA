@@ -366,6 +366,9 @@ def preprocess_llama_2(
 
     targets = input_ids.clone()
 
+    print(conversations)
+    print(targets)
+
     assert conv.sep_style == conversation_lib.SeparatorStyle.LLAMA_2
 
     # Mask targets
@@ -395,6 +398,11 @@ def preprocess_llama_2(
             target[cur_len : cur_len + instruction_len] = IGNORE_INDEX
 
             cur_len += round_len
+
+            print(f"-------{i}----------")
+            print(rou)
+            print(target)
+
         target[cur_len:] = IGNORE_INDEX
 
         if cur_len < tokenizer.model_max_length:
