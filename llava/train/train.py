@@ -480,19 +480,21 @@ def preprocess_lilium_2(
             parts[0] += sep
 
             if has_image:
-                round_len = len(tokenizer_image_token(rou, tokenizer))
+                round_len = len(tokenizer_image_token(rou, tokenizer)) + 1
                 instruction_len = len(tokenizer_image_token(parts[0], tokenizer)) - 2
+
             else:
-                round_len = len(tokenizer(rou).input_ids)
+                round_len = len(tokenizer(rou).input_ids) + 1
                 instruction_len = len(tokenizer(parts[0]).input_ids) - 2
 
             target[cur_len : cur_len + instruction_len] = IGNORE_INDEX
 
-            cur_len += (round_len + 1)
+            cur_len += round_len
 
             print(f"-------{i}----------")
             print(rou)
             print(target)
+            print(round_len, instruction_len)
 
         target[cur_len:] = IGNORE_INDEX
 
