@@ -447,6 +447,10 @@ def preprocess_lilium_2(
         ).input_ids
 
     targets = input_ids.clone()
+    print(conversation)
+    print(target)
+    import sys
+    sys.exit(0)
 
     assert conv.sep_style == conversation_lib.SeparatorStyle.LILIUM_2
 
