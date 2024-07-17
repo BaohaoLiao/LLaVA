@@ -431,7 +431,7 @@ def preprocess_lilium_2(
             role = roles[sentence["from"]]
             assert role == conv.roles[j % 2], f"{i}"
             conv.append_message(role, sentence["value"])
-        conversations.append(conv.get_prompt())
+        conversations.append(conv.sep + conv.get_prompt())
 
     # Tokenize conversations
 
@@ -447,10 +447,7 @@ def preprocess_lilium_2(
         ).input_ids
 
     targets = input_ids.clone()
-
-    print(input_ids)
-    import sys
-    sys.exit(0)
+    conversations = [conversation[len(conv.sep):] for conversation in conversations]
 
     assert conv.sep_style == conversation_lib.SeparatorStyle.LILIUM_2
 
@@ -460,7 +457,7 @@ def preprocess_lilium_2(
         total_len = int(target.ne(tokenizer.pad_token_id).sum())
 
         rounds = conversation.split(conv.sep2)
-        cur_len = 0
+        cur_len = 1
         target[:cur_len] = IGNORE_INDEX
         for i, rou in enumerate(rounds):
             if rou == "":
