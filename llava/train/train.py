@@ -498,9 +498,6 @@ def preprocess_lilium_2(
                     f" (ignored)"
                 )
 
-    print(input_ids, len(input_ids[0]))
-    print(targets, len(targets[0]))
-
     return dict(
         input_ids=input_ids,
         labels=targets,
