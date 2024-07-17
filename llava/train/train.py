@@ -469,7 +469,7 @@ def preprocess_lilium_2(
         total_len = int(target.ne(tokenizer.pad_token_id).sum())
 
         rounds = conversation.split(conv.sep2)
-        cur_len = 1
+        cur_len = 0
         target[:cur_len] = IGNORE_INDEX
         for i, rou in enumerate(rounds):
             if rou == "":
