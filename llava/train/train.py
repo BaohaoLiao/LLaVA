@@ -491,7 +491,7 @@ def preprocess_lilium_2(
         target[cur_len:] = IGNORE_INDEX
 
         if cur_len < tokenizer.model_max_length:
-            if cur_len != total_len:
+            if cur_len + 1 != total_len:
                 target[:] = IGNORE_INDEX
                 print(
                     f"WARNING: tokenization mismatch: {cur_len} vs. {total_len}."
