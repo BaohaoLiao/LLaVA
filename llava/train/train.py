@@ -439,11 +439,9 @@ def preprocess_lilium_2(
             role = roles[sentence["from"]]
             assert role == conv.roles[j % 2], f"{i}"
             conv.append_message(role, sentence["value"])
-        conversations.append(conv.sep + conv.get_prompt())
-        #conversations.append(conv.get_prompt())
+        conversations.append(conv.get_prompt())
 
     # Tokenize conversations
-
     if has_image:
         input_ids = torch.stack([tokenizer_image_token(prompt, tokenizer, return_tensors='pt') for prompt in conversations], dim=0)
     else:
@@ -456,7 +454,6 @@ def preprocess_lilium_2(
         ).input_ids
 
     targets = input_ids.clone()
-    conversations = [conversation[len(conv.sep):] for conversation in conversations]
 
     assert conv.sep_style == conversation_lib.SeparatorStyle.LILIUM_2
 
@@ -497,6 +494,12 @@ def preprocess_lilium_2(
                     f"WARNING: tokenization mismatch: {cur_len} vs. {total_len}."
                     f" (ignored)"
                 )
+
+    # Add bos
+    bos_tokens = torch.tensor([tokenizer.bos_token_id] * len(input_ids), dtype=input_ids.dtype).unsqueeze(1)
+    ignore_tokens = torch.tensor([IGNORE_INDEX] * len(input_ids), dtype=input_ids.dtype).unsqueeze(1)
+    input_ids = torch.cat((bos_tokens, input_ids), axis=1)
+    targets = torch.cat((ignore_tokens, targets), axis=1)
 
     return dict(
         input_ids=input_ids,
