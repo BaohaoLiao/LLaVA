@@ -49,7 +49,7 @@ class CustomDataset(Dataset):
         conv = conv_templates[args.conv_mode].copy()
         conv.append_message(conv.roles[0], qs)
         conv.append_message(conv.roles[1], None)
-        if "lilium" in self.model_family.lower:
+        if "lilium" in self.model_family.lower():
             prompt = conv.sep + conv.get_prompt()
         else:
             prompt = conv.get_prompt()
